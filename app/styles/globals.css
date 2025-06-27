@@ -1,0 +1,202 @@
+/**
+ * 全局样式文件
+ * 包含Tailwind CSS基础层、组件层和工具层
+ * 以及自定义的组件样式和动画效果
+ */
+
+/* 导入Tailwind CSS */
+@tailwind base;      /* 基础样式：重置默认样式，设置默认字体等 */
+@tailwind components; /* 组件样式：可重用的组件类 */
+@tailwind utilities;  /* 工具类：原子化的样式类 */
+
+/**
+ * 基础层样式
+ * 设置全局的基础样式，包括HTML和body元素
+ */
+@layer base {
+  /* 设置页面平滑滚动效果 */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* 设置全局背景色和文字颜色，支持深色模式 */
+  body {
+    @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  }
+}
+
+/**
+ * 组件层样式
+ * 定义可重用的组件样式类
+ */
+@layer components {
+  /* 聊天气泡基础样式 */
+  .chat-bubble {
+    @apply max-w-[80%] p-4 rounded-2xl shadow-sm animate-slide-up;
+    /* 
+     * max-w-[80%]: 最大宽度为80%，避免消息过宽
+     * p-4: 内边距16px
+     * rounded-2xl: 大圆角边框
+     * shadow-sm: 轻微阴影效果
+     * animate-slide-up: 滑入动画
+     */
+  }
+  
+  /* 用户消息气泡样式 */
+  .chat-bubble-user {
+    @apply bg-primary-500 text-white ml-auto;
+    /*
+     * bg-primary-500: 主色调背景
+     * text-white: 白色文字
+     * ml-auto: 右对齐（margin-left: auto）
+     */
+  }
+  
+  /* AI消息气泡样式 */
+  .chat-bubble-ai {
+    @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mr-auto;
+    /*
+     * bg-white dark:bg-gray-800: 浅色模式白色背景，深色模式灰色背景
+     * border: 边框样式，支持深色模式
+     * mr-auto: 左对齐（margin-right: auto）
+     */
+  }
+  
+  /* 消息输入框样式 */
+  .message-input {
+    @apply w-full p-4 pr-12 border border-gray-300 dark:border-gray-600 rounded-xl 
+           bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
+           focus:ring-2 focus:ring-primary-500 focus:border-transparent
+           placeholder-gray-400 dark:placeholder-gray-500
+           resize-none outline-none transition-all duration-200;
+    /*
+     * w-full: 全宽
+     * p-4 pr-12: 内边距，右侧预留发送按钮空间
+     * border: 边框样式，支持深色模式
+     * rounded-xl: 圆角边框
+     * bg-white dark:bg-gray-800: 背景色，支持深色模式
+     * focus:ring-2: 聚焦时的环形高亮效果
+     * placeholder: 占位符颜色
+     * resize-none: 禁止调整大小
+     * outline-none: 移除默认outline
+     * transition-all: 所有属性过渡动画
+     */
+  }
+  
+  /* 主要按钮样式 */
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg
+           transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    /*
+     * bg-primary-500: 主色调背景
+     * hover:bg-primary-600: 悬停时深色
+     * text-white: 白色文字
+     * font-medium: 中等字重
+     * py-2 px-4: 上下8px，左右16px内边距
+     * rounded-lg: 中等圆角
+     * transition-all: 过渡动画
+     * focus:ring-2: 聚焦环形高亮
+     * disabled: 禁用状态样式
+     */
+  }
+  
+  /* 次要按钮样式 */
+  .btn-secondary {
+    @apply bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 
+           text-gray-700 dark:text-gray-300 font-medium py-2 px-4 rounded-lg
+           transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+    /*
+     * bg-gray-200 dark:bg-gray-700: 灰色背景，支持深色模式
+     * hover: 悬停效果
+     * text-gray-700 dark:text-gray-300: 文字颜色
+     * 其他样式同主要按钮
+     */
+  }
+}
+
+/**
+ * 自定义滚动条样式
+ * 提供更美观的滚动条外观
+ */
+.scrollbar-thin {
+  /* Firefox滚动条样式 */
+  scrollbar-width: thin;
+  scrollbar-color: rgb(156 163 175) transparent;
+}
+
+/* Webkit浏览器滚动条样式 */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px; /* 滚动条宽度 */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent; /* 滚动轨道背景透明 */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgb(156 163 175); /* 滚动滑块颜色 */
+  border-radius: 3px; /* 滚动滑块圆角 */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(107 114 128); /* 悬停时滚动滑块颜色 */
+}
+
+/**
+ * 打字动画效果
+ * 模拟打字机效果的闪烁光标
+ */
+.typing-animation {
+  display: inline-block;
+}
+
+.typing-animation::after {
+  content: '|'; /* 光标字符 */
+  animation: blink 1s infinite; /* 闪烁动画 */
+}
+
+/* 光标闪烁动画关键帧 */
+@keyframes blink {
+  0%, 50% { opacity: 1; }    /* 前半秒显示 */
+  51%, 100% { opacity: 0; }  /* 后半秒隐藏 */
+}
+
+/**
+ * 加载动画效果
+ * 三个小点的跳跃动画，表示正在加载
+ */
+.loading-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px; /* 点之间的间距 */
+}
+
+.loading-dots span {
+  width: 6px;    /* 点的宽度 */
+  height: 6px;   /* 点的高度 */
+  border-radius: 50%; /* 圆形 */
+  background-color: currentColor; /* 使用当前文字颜色 */
+  animation: loading-pulse 1.4s ease-in-out infinite both; /* 脉冲动画 */
+}
+
+/* 为每个点设置不同的动画延迟，创建波浪效果 */
+.loading-dots span:nth-child(1) { 
+  animation-delay: -0.32s; /* 第一个点延迟 */
+}
+.loading-dots span:nth-child(2) { 
+  animation-delay: -0.16s; /* 第二个点延迟 */
+}
+/* 第三个点无延迟 */
+
+/* 加载点脉冲动画关键帧 */
+@keyframes loading-pulse {
+  0%, 80%, 100% {
+    transform: scale(0); /* 缩小到0 */
+    opacity: 0.5;        /* 半透明 */
+  }
+  40% {
+    transform: scale(1); /* 恢复原始大小 */
+    opacity: 1;          /* 完全不透明 */
+  }
+} 
